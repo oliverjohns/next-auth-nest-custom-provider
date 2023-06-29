@@ -27,21 +27,21 @@ export class OidcConfigService implements OidcModuleOptionsFactory {
   getConfiguration(): OidcConfiguration {
     return {
       // Used to skip the consent step
-      // async loadExistingGrant(ctx) {
-      //   const grant = new ctx.oidc.provider.Grant({
-      //     clientId: ctx.oidc.client.clientId,
-      //     accountId: ctx.oidc.session.accountId,
-      //   });
+      async loadExistingGrant(ctx) {
+        const grant = new ctx.oidc.provider.Grant({
+          clientId: ctx.oidc.client.clientId,
+          accountId: ctx.oidc.session.accountId,
+        });
 
-      //   grant.addOIDCScope('openid email profile');
-      //   grant.addOIDCClaims(['email']);
-      //   grant.addResourceScope(
-      //     'urn:example:resource-indicator',
-      //     'api:read api:write',
-      //   );
-      //   await grant.save();
-      //   return grant;
-      // },
+        grant.addOIDCScope('openid email profile');
+        grant.addOIDCClaims(['email']);
+        grant.addResourceScope(
+          'urn:example:resource-indicator',
+          'api:read api:write',
+        );
+        await grant.save();
+        return grant;
+      },
       findAccount: async (ctx, id) => {
         console.warn('RETURNING DUMMY ACCOUNT! (Write your own findAccount implementation here)');
         return {
@@ -71,13 +71,13 @@ export class OidcConfigService implements OidcModuleOptionsFactory {
       },
       clients: [
         {
-          client_id: 'testprovider',
+          client_id: 'bankid',
           client_secret: 'supersecret123',
-          client_name: 'testprovider',
+          client_name: 'bankid',
           response_types: ['code'],
           token_endpoint_auth_method: 'none',
           application_type: 'web',
-          redirect_uris: ['http://localhost:3000/api/auth/callback/testprovider'],
+          redirect_uris: ['http://localhost:3000/api/auth/callback/bankid'],
         },
       ],
       pkce: {

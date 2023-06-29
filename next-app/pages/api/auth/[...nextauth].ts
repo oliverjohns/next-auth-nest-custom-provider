@@ -13,8 +13,8 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GITHUB_SECRET,
     }),
     {
-      id: "testprovider",
-      name: "testprovider",
+      id: "bankid",
+      name: "bankid",
       type: "oauth",
       wellKnown: "http://localhost:3001/oidc/.well-known/openid-configuration",
       authorization: {
@@ -29,10 +29,10 @@ export const authOptions: NextAuthOptions = {
       },
 
       client: {
-        id: "testprovider",
-        client_id: "testprovider",
+        id: "bankid",
+        client_id: "bankid",
         client_secret: "supersecret123",
-        redirect_uris: ["http://localhost:3000/api/auth/callback/testprovider"],
+        redirect_uris: ["http://localhost:3000/api/auth/callback/bankid"],
         token_endpoint_auth_method: "none",
         introspection_endpoint_auth_method: "none",
       },
