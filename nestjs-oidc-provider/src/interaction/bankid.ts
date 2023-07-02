@@ -225,8 +225,8 @@ export class BankIdClient {
     if (this.options.ca === undefined) {
       this.options.ca = this.options.production
       // TODO: FIX PATH HERE 
-        ? path.resolve(__dirname, "../../cert/", "prod.ca")
-        : path.resolve(__dirname, "../../cert/", "test.ca");
+        ? path.resolve(__dirname, "../cert/", "prod.ca")
+        : path.resolve(__dirname, "../cert/", "test.ca");
     }
 
     this.axios = this.#createAxiosInstance();

@@ -83,17 +83,11 @@
       }
 
       const showErrorHtml = () => {
-        console.log("running showErrorHtml");
         const element = document.getElementById("content");
-        console.log("element", element);
-        // Change the element's style to use Flexbox for centering
-
-        // Set the content to be a centered p tag
         element.innerHTML = `<div><p>${message}</p><a href="http://<%= new URL(params.redirect_uri).host %>" class="text-center w-100 d-block mt-2">Till startsidan</a></div>`;
       };
 
       const fetchQrIntervalId = setInterval(() => {
-        console.log("fetchQr");
         fetch("http://localhost:3001/interaction/qr/<%= uid %>")
           .then(function (response) {
             if (response.ok) {
@@ -113,7 +107,6 @@
           });
       }, 2000);
       const fetchStatusIntervalId = setInterval(() => {
-        console.log("fetchStatus");
         fetch("http://localhost:3001/interaction/status/<%= uid %>")
           .then(function (response) {
             if (response.ok) {
