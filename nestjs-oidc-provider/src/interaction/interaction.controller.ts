@@ -6,11 +6,12 @@ import {
   Logger,
   Param,
   Post,
+  Req,
   Res,
 } from "@nestjs/common";
 import { Provider } from "oidc-provider";
 import { Oidc, InteractionHelper } from "nest-oidc-provider";
-import { Response } from "express";
+import { Request, Response } from "express";
 import { createHmac } from "node:crypto";
 import { SchedulerRegistry } from "@nestjs/schedule";
 import { CronJob } from "cron";
@@ -129,14 +130,17 @@ export class InteractionController {
   @Get(":uid")
   async login(
     @Oidc.Interaction() interaction: InteractionHelper,
+    @Req() request: Request,
     @Res() res: Response
   ) {
     try {
       const { prompt, params, uid } = await interaction.details();
-      this.logger.log(`BankID Auth started for ${uid}`);
+      console.log("request", request.headers, request.ip);
+
+      this.logger.log(`BankID Auth started for uid ${uid}, ip ${request.ip}`);
       const { autoStartToken, orderRef, qrStartSecret, qrStartToken } =
         await this.client.authenticate({
-          endUserIp: "127.0.0.1",
+          endUserIp: request.ip,
         });
 
       const qrCode = await this.startQr(
