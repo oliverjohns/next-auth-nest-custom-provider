@@ -4,13 +4,10 @@ import {
   OidcModuleOptionsFactory,
 } from "nest-oidc-provider";
 import { Injectable } from "@nestjs/common";
-import { AdapterFactory } from "oidc-provider";
-import { TestAdapter } from "../adapters/test.adapter";
-import { DatabaseService } from "../database/database.service";
 
 @Injectable()
 export class OidcConfigService implements OidcModuleOptionsFactory {
-  constructor(private readonly dbService: DatabaseService) {}
+  constructor() {}
 
   createModuleOptions(): OidcModuleOptions | Promise<OidcModuleOptions> {
     return {
@@ -18,10 +15,6 @@ export class OidcConfigService implements OidcModuleOptionsFactory {
       path: "/oidc",
       oidc: this.getConfiguration(),
     };
-  }
-
-  createAdapterFactory(): AdapterFactory | Promise<AdapterFactory> {
-    return (modelName: string) => new TestAdapter(modelName, this.dbService);
   }
 
   getConfiguration(): OidcConfiguration {
