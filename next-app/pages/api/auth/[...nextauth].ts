@@ -8,14 +8,18 @@ export const authOptions: NextAuthOptions = {
   debug: true,
   // https://next-auth.js.org/configuration/providers/oauth
   providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-    }),
     {
       id: "bankid",
-      name: "bankid",
+      name: "BankID",
       type: "oauth",
+      style: {
+        logo: "./BankID_logo.svg",
+        logoDark: "./BankID_logo_white.svg",
+        bg: "#fff",
+        bgDark: "#000",
+        text: "#000",
+        textDark: "#fff",
+      },
       wellKnown: "http://localhost:3001/oidc/.well-known/openid-configuration",
       authorization: {
         params: {
